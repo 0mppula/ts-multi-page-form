@@ -13,7 +13,9 @@ body {
 }
 
 :root {
+	--clr-gray: #ccc;
 	--clr-primary: #3c3440;
+	--clr-primary-light: #e6e3e8;
 	--clr-text-primary: #0d0d0d;
 	--clr-text-light: #fcfcfc;
 	--clr-danger: #e21a1a;

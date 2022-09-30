@@ -2,13 +2,14 @@ import { useState } from 'react';
 
 import FormGroup from './FormComponents/FormGroup';
 import TextInput from './FormComponents/TextInput';
-import './form.css';
 import FormProgressBar from './FormComponents/FormProgressBar';
+import SelectInput, { selectItemType } from './FormComponents/SelectInput';
+import '../assets/stylesheets/form.css';
 
 interface FormDataType {
 	firstName: string;
 	lastName: string;
-	nationality: string;
+	nationality: selectItemType;
 	sex: string;
 	dateOfBirth: string;
 	email: string;
@@ -37,7 +38,7 @@ const Form = () => {
 	const [formData, setFormData] = useState<FormDataType>({
 		firstName: '',
 		lastName: '',
-		nationality: '',
+		nationality: { value: null, label: '-- Select an Option --' },
 		sex: '',
 		dateOfBirth: '',
 		email: '',
@@ -95,6 +96,10 @@ const Form = () => {
 		setFormData({ ...formData, [field]: value });
 	};
 
+	const handleSelectChange = (e: selectItemType) => {
+		setFormData((prevState) => ({ ...prevState, nationality: e }));
+	};
+
 	return (
 		<form>
 			<FormProgressBar />
@@ -121,13 +126,12 @@ const Form = () => {
 			</FormGroup>
 
 			<FormGroup>
-				<TextInput
-					value={nationality}
-					handleChange={handleChange}
-					label="Nationality // SELECT ELEMENT"
+				<SelectInput
+					label="Nationality"
 					name="nationality"
-					placeholder="Enter your nationality"
+					value={nationality}
 					error={nationalityError}
+					handleSelectChange={handleSelectChange}
 					required
 				/>
 

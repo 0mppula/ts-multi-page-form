@@ -1,0 +1,121 @@
+form {
+	width: 100%;
+	padding: 1rem;
+	margin-bottom: 2rem;
+}
+
+form * {
+    font-size: 1.125rem;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+.input-group-container {
+	display: flex;
+	gap: 1rem;
+}
+
+.input-group {
+	flex: 1 1 calc(50% - 1rem);
+	position: relative;
+}
+
+.form-group label {
+	width: 100%;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+label span {
+	color: var(--clr-danger);
+}
+
+.form-group input,
+.form-group textarea {
+	transition: 0.15s all;
+	width: 100%;
+	padding: 10px;
+	border: none;
+	outline: 1px solid var(--clr-gray);
+	border-radius: 4px;
+	color: var(--clr-text-primary);
+}
+
+input:focus,
+textarea:focus {
+	outline: solid 2px var(--clr-primary);
+}
+
+::placeholder {
+	color: var(--clr-gray);
+}
+
+input.icon-input {
+	padding-right: 34px;
+}
+
+.error {
+	margin-top: 0.5rem;
+	color: var(--clr-danger);
+}
+
+.progress-bar {
+	width: 100%;
+	background-color: var(--clr-primary);
+	padding: 1rem;
+	margin-bottom: 2rem;
+	color: var(--clr-text-light);
+}
+
+/* React Select Styles */
+.react-select__value-container {
+	height: 41.6px !important;
+	padding: 0 !important;
+}
+.react-select__single-value {
+	color: var(--clr-text-primary) !important;
+	height: 41.6px !important;
+	padding: 10px !important;
+	margin: 0 !important;
+	margin-bottom: 9px !important;
+}
+.react-select__indicators {
+	height: 44px !important;
+}
+
+.react-select__control {
+	height: 41.6px !important;
+	font-size: 1rem !important;
+	background-color: var(--clr-text-light) !important;
+	border: none !important;
+	outline: solid 1px var(--clr-text-secondary);
+}
+.react-select__control--is-focused {
+	background-color: var(--clr-text-light) !important;
+	border: none !important;
+}
+.react-select__menu {
+	background-color: var(--clr-text-light) !important;
+}
+.react-select__option {
+	font-size: 1.125rem !important;
+	color: var(--clr-text-primary) !important;
+}
+.react-select__option--is-focused:active {
+	color: var(--clr-text-light) !important;
+}
+.react-select__option--is-selected {
+	color: var(--clr-text-light) !important;
+}
+.react-select__indicator-separator {
+	display: none;
+}
+/* Search field input styles */
+.react-select__input-container {
+	margin: 0 !important;
+	margin-bottom: 9px !important;
+	padding: 10px !important;
+}
+/* End React Select Styles */
