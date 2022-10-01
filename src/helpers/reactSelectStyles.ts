@@ -1,7 +1,7 @@
 import { cssVar } from './getCssVariable';
 
 export const customStyles = {
-	control: (provided, state) => ({
+	control: (provided: any, state: any) => ({
 		...provided,
 		// Outline of the select element when when focused and blurred
 		outline: state.isFocused
@@ -10,7 +10,7 @@ export const customStyles = {
 	}),
 };
 
-export const customTheme = (theme) => ({
+export const customTheme = (theme: any) => ({
 	...theme,
 	colors: {
 		...theme.colors,
