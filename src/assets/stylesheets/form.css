@@ -1,11 +1,11 @@
 form {
 	width: 100%;
 	padding: 1rem;
-	margin-bottom: 2rem;
+	margin-bottom: 7rem;
 }
 
 form * {
-    font-size: 1.125rem;
+	font-size: 1.125rem;
 }
 
 .form-group {

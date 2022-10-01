@@ -1,27 +1,41 @@
-import { FC, useRef } from 'react';
+import { FC, useRef, useState } from 'react';
 import Select from 'react-select';
 import { customStyles, customTheme } from '../../helpers/reactSelectStyles';
-import nationalities from '../../assets/data/nationalities';
+import { selectItemType } from '../../assets/data/nationalities';
 
 interface SelectInputProps {
 	label: string;
 	name: string;
-	required?: boolean;
-	handleSelectChange: Function;
-	error?: string;
 	value: selectItemType;
+	options: selectItemType[];
+	error?: string;
+	handleSelectChange: Function;
+	required?: boolean;
 }
 
-export interface selectItemType {
-	value: string | null;
-	label: string;
-}
-
-const SelectInput: FC<SelectInputProps> = ({ label, value, handleSelectChange, required }) => {
+const SelectInput: FC<SelectInputProps> = ({
+	label,
+	name,
+	value,
+	options,
+	error,
+	handleSelectChange,
+	required,
+}) => {
+	const [menuFitsInWindow, setMenuFitsInWindow] = useState(true);
 	const selectRef = useRef(null);
 
 	const handleFocus = (ref: any) => {
 		if (ref.current) ref.current.focus();
+	};
+
+	const handleMenuOpen = (ref: any) => {
+		const menuheight = 290;
+		const selectMenuYPos = ref.current.inputRef.getBoundingClientRect().y;
+		const windowHeigth = window.innerHeight;
+		const menuFitsInWindow = selectMenuYPos + menuheight < windowHeigth;
+
+		setMenuFitsInWindow(menuFitsInWindow);
 	};
 
 	return (
@@ -37,11 +51,16 @@ const SelectInput: FC<SelectInputProps> = ({ label, value, handleSelectChange, r
 				classNamePrefix="react-select"
 				theme={customTheme}
 				styles={customStyles}
-				options={nationalities}
+				maxMenuHeight={231}
+				onMenuOpen={() => handleMenuOpen(selectRef)}
+				menuPlacement={menuFitsInWindow ? 'auto' : 'top'}
+				options={options}
 				value={value}
 				isSearchable
-				onChange={(e) => handleSelectChange(e)}
+				onChange={(e) => handleSelectChange(e, name)}
 			/>
+
+			<div className="error">{error}</div>
 		</div>
 	);
 };

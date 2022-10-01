@@ -4,7 +4,7 @@ interface TextInputProps {
 	label: string;
 	name: string;
 	placeholder: string;
-	required: boolean;
+	required?: boolean;
 	error?: string;
 	value: string;
 	handleChange: Function;
@@ -40,6 +40,7 @@ const TextInput: FC<TextInputProps> = ({
 				name={name}
 				placeholder={placeholder}
 			/>
+			
 			<div className="error">{error}</div>
 		</div>
 	);

@@ -3,21 +3,24 @@ import { useState } from 'react';
 import FormGroup from './FormComponents/FormGroup';
 import TextInput from './FormComponents/TextInput';
 import FormProgressBar from './FormComponents/FormProgressBar';
-import SelectInput, { selectItemType } from './FormComponents/SelectInput';
+import SelectInput from './FormComponents/SelectInput';
+import { nationalities, selectItemType } from '../assets/data/nationalities';
 import '../assets/stylesheets/form.css';
+import { sexes } from '../assets/data/sexes';
+import { countries } from '../assets/data/countries';
 
 interface FormDataType {
 	firstName: string;
 	lastName: string;
 	nationality: selectItemType;
-	sex: string;
+	sex: selectItemType;
 	dateOfBirth: string;
 	email: string;
 	phoneNumber: string;
 	address: string;
 	zipCode: string;
 	city: string;
-	country: string;
+	country: selectItemType;
 }
 
 interface FormErrorsType {
@@ -39,14 +42,14 @@ const Form = () => {
 		firstName: '',
 		lastName: '',
 		nationality: { value: null, label: '-- Select an Option --' },
-		sex: '',
+		sex: { value: null, label: '-- Select an Option --' },
 		dateOfBirth: '',
 		email: '',
 		phoneNumber: '',
 		address: '',
 		zipCode: '',
 		city: '',
-		country: '',
+		country: { value: null, label: '-- Select an Option --' },
 	});
 	const [formErrors, setFormErrors] = useState<FormErrorsType>({
 		firstNameError: '',
@@ -96,8 +99,12 @@ const Form = () => {
 		setFormData({ ...formData, [field]: value });
 	};
 
-	const handleSelectChange = (e: selectItemType) => {
-		setFormData((prevState) => ({ ...prevState, nationality: e }));
+	const handleSelectChange = (e: selectItemType, field: string) => {
+		// Set the value of the selection to lowercase.
+		setFormData((prevState) => ({
+			...prevState,
+			[field]: { ...e, value: e.value?.toLocaleLowerCase() },
+		}));
 	};
 
 	return (
@@ -130,18 +137,19 @@ const Form = () => {
 					label="Nationality"
 					name="nationality"
 					value={nationality}
+					options={nationalities}
 					error={nationalityError}
 					handleSelectChange={handleSelectChange}
 					required
 				/>
 
-				<TextInput
-					value={sex}
-					handleChange={handleChange}
-					label="Sex // SELECT ELEMENT"
+				<SelectInput
+					label="Sex"
 					name="sex"
-					placeholder="Enter your sex"
+					value={sex}
+					options={sexes}
 					error={sexError}
+					handleSelectChange={handleSelectChange}
 					required
 				/>
 			</FormGroup>
@@ -178,7 +186,6 @@ const Form = () => {
 					name="phoneNumber"
 					placeholder="Enter your phone number"
 					error={phoneNumberError}
-					required
 				/>
 			</FormGroup>
 
@@ -215,13 +222,13 @@ const Form = () => {
 					required
 				/>
 
-				<TextInput
-					value={country}
-					handleChange={handleChange}
-					label="Country // SELECT ELEMENT"
+				<SelectInput
+					label="Country"
 					name="country"
-					placeholder="Enter your country"
+					value={country}
+					options={countries}
 					error={countryError}
+					handleSelectChange={handleSelectChange}
 					required
 				/>
 			</FormGroup>

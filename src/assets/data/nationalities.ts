@@ -1,6 +1,9 @@
-import { selectItemType } from '../../components/FormComponents/SelectInput';
+export interface selectItemType {
+	value: string | null;
+	label: string;
+}
 
-const nationalities: selectItemType[] = [
+export const nationalities: selectItemType[] = [
 	{ value: 'Afghan', label: 'Afghan' },
 	{ value: 'Albanian', label: 'Albanian' },
 	{ value: 'Algerian', label: 'Algerian' },
@@ -192,5 +195,3 @@ const nationalities: selectItemType[] = [
 	{ value: 'Zambian', label: 'Zambian' },
 	{ value: 'Zimbabwean', label: 'Zimbabwean' },
 ];
-
-export default nationalities;

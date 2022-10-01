@@ -12,6 +12,20 @@ body {
 	color: var(--clr-text-primary);
 }
 
+footer {
+	width: 100%;
+	padding-top: 5rem;
+	padding-bottom: 2rem;
+	background-color: var(--clr-primary);
+	color: var(--clr-primary-light);
+	text-align: center;
+}
+
+footer a {
+	margin-left: 0.25rem;
+	color: var(--clr-text-light);
+}
+
 :root {
 	--clr-gray: #ccc;
 	--clr-primary: #3c3440;
