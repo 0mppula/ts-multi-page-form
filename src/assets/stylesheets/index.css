@@ -43,11 +43,12 @@ footer a {
 	align-items: center;
 	margin: 0 auto;
 	width: min(95vw, 800px);
+	min-height: 100vh;
 }
 
 .header {
 	margin-top: 1.5rem;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 
 .btn {
@@ -65,6 +66,24 @@ footer a {
 	border: none;
 }
 
-.btn-block {
-	width: 100%;
+.btn:hover {
+	transform: scale(1.01);
+}
+
+.btn-block-50 {
+	display: flex;
+	gap: 1rem;
+	flex-basis: 50%;
+}
+
+.btn-right {
+	margin-right: auto;
+}
+
+.btn-left {
+	margin-left: auto;
+}
+
+.btn-success {
+	background-color: var(--clr-success);
 }

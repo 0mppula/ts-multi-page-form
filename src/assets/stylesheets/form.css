@@ -1,7 +1,12 @@
 form {
 	width: 100%;
-	padding: 1rem;
+	margin-top: 2rem;
 	margin-bottom: 7rem;
+}
+
+.form-container {
+	width: 100%;
+    padding: 0 1rem;
 }
 
 form * {
@@ -81,7 +86,6 @@ input.icon-input {
 	width: 100%;
 	background-color: var(--clr-primary);
 	padding: 1rem;
-	margin-bottom: 2rem;
 	color: var(--clr-text-light);
 }
 

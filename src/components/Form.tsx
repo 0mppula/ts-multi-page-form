@@ -1,16 +1,13 @@
 import { useState } from 'react';
 
 import FormGroup from './FormComponents/FormGroup';
-import TextInput from './FormComponents/TextInput';
 import FormProgressBar from './FormComponents/FormProgressBar';
-import SelectInput from './FormComponents/SelectInput';
-import { nationalities, selectItemType } from '../assets/data/nationalities';
+import { selectItemType } from '../assets/data/nationalities';
 import '../assets/stylesheets/form.css';
-import { sexes } from '../assets/data/sexes';
-import { countries } from '../assets/data/countries';
-import DateInput from './FormComponents/DateInput';
+import FormPage1 from './FormComponents/FormPage1';
+import FormPage2 from './FormComponents/FormPage2';
 
-interface FormDataType {
+export interface FormDataType {
 	firstName: string;
 	lastName: string;
 	nationality: selectItemType;
@@ -24,7 +21,7 @@ interface FormDataType {
 	country: selectItemType;
 }
 
-interface FormErrorsType {
+export interface FormErrorsType {
 	firstNameError: string;
 	lastNameError: string;
 	nationalityError: string;
@@ -39,6 +36,7 @@ interface FormErrorsType {
 }
 
 const Form = () => {
+	const [formPageIndex, setFormPageIndex] = useState<number>(0);
 	const [formData, setFormData] = useState<FormDataType>({
 		firstName: '',
 		lastName: '',
@@ -66,33 +64,6 @@ const Form = () => {
 		countryError: '',
 	});
 
-	const {
-		firstName,
-		lastName,
-		nationality,
-		sex,
-		dateOfBirth,
-		email,
-		phoneNumber,
-		address,
-		zipCode,
-		city,
-		country,
-	} = formData;
-	const {
-		firstNameError,
-		lastNameError,
-		nationalityError,
-		sexError,
-		dateOfBirthError,
-		emailError,
-		phoneNumberError,
-		addressError,
-		zipCodeError,
-		cityError,
-		countryError,
-	} = formErrors;
-
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const field = e.target.name;
 		const value = e.target.value;
@@ -112,137 +83,76 @@ const Form = () => {
 		}));
 	};
 
+	const handlePageIncrement = (e: React.MouseEvent) => {
+		e.preventDefault();
+		if (formPageIndex < formPages.length - 1) {
+			// TODO HANDLE FORM INPUT VALIDATION
+			setFormPageIndex((prevState) => prevState + 1);
+		}
+	};
+
+	const handlePageDecrement = (e: React.MouseEvent) => {
+		e.preventDefault();
+		if (formPageIndex > 0) {
+			setFormPageIndex((prevState) => prevState - 1);
+		}
+	};
+
+	const formPages = [
+		<FormPage1
+			formData={formData}
+			formErrors={formErrors}
+			handleChange={handleChange}
+			handleDateChange={handleDateChange}
+			handleSelectChange={handleSelectChange}
+		/>,
+		<FormPage2
+			formData={formData}
+			formErrors={formErrors}
+			handleChange={handleChange}
+			handleDateChange={handleDateChange}
+			handleSelectChange={handleSelectChange}
+		/>,
+	];
+
 	return (
-		<form>
-			<FormProgressBar />
-			<FormGroup>
-				<TextInput
-					value={firstName}
-					handleChange={handleChange}
-					label="First Name"
-					name="firstName"
-					placeholder="Enter your first name"
-					error={firstNameError}
-					required
-				/>
+		<div className="form-container">
+			<FormProgressBar formPageIndex={formPageIndex} lastPageIndex={formPages.length} />
+			<form>
+				{formPages[formPageIndex]}
 
-				<TextInput
-					value={lastName}
-					handleChange={handleChange}
-					label="Last Name"
-					name="lastName"
-					placeholder="Enter your last name"
-					error={lastNameError}
-					required
-				/>
-			</FormGroup>
+				<FormGroup>
+					{formPageIndex > 0 && (
+						<button
+							className="btn btn-block-50 btn-right"
+							onClick={(e) => handlePageDecrement(e)}
+						>
+							<span>⬅</span>
+							<span>Previous Page</span>
+						</button>
+					)}
 
-			<FormGroup>
-				<SelectInput
-					label="Nationality"
-					name="nationality"
-					value={nationality}
-					options={nationalities}
-					error={nationalityError}
-					handleSelectChange={handleSelectChange}
-					required
-				/>
+					{formPageIndex < formPages.length - 1 && (
+						<button
+							className="btn btn-block-50 btn-left"
+							onClick={(e) => handlePageIncrement(e)}
+						>
+							<span>Next Page</span>
+							<span>➡</span>
+						</button>
+					)}
 
-				<SelectInput
-					label="Sex"
-					name="sex"
-					value={sex}
-					options={sexes}
-					error={sexError}
-					handleSelectChange={handleSelectChange}
-					required
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<DateInput
-					value={dateOfBirth}
-					handleDateChange={handleDateChange}
-					label="Date of Birth"
-					name="dateOfBirth"
-					placeholder="Enter your birthday (DD.MM.YYYY)"
-					error={dateOfBirthError}
-					required
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<TextInput
-					value={email}
-					handleChange={handleChange}
-					label="Email Address"
-					name="email"
-					placeholder="Enter your email address"
-					error={emailError}
-					required
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<TextInput
-					value={phoneNumber}
-					handleChange={handleChange}
-					label="Phone Number"
-					name="phoneNumber"
-					placeholder="Enter your phone number"
-					error={phoneNumberError}
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<TextInput
-					value={address}
-					handleChange={handleChange}
-					label="Address"
-					name="address"
-					placeholder="Enter your street address"
-					error={addressError}
-					required
-				/>
-
-				<TextInput
-					value={zipCode}
-					handleChange={handleChange}
-					label="ZIP Code"
-					name="zipCode"
-					placeholder="Enter your ZIP code"
-					error={zipCodeError}
-					required
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<TextInput
-					value={city}
-					handleChange={handleChange}
-					label="City"
-					name="city"
-					placeholder="Enter your city"
-					error={cityError}
-					required
-				/>
-
-				<SelectInput
-					label="Country"
-					name="country"
-					value={country}
-					options={countries}
-					error={countryError}
-					handleSelectChange={handleSelectChange}
-					required
-				/>
-			</FormGroup>
-
-			<FormGroup>
-				<button className="btn btn-block">Previous Page</button>
-				<button className="btn btn-block">Next Page</button>
-			</FormGroup>
-		</form>
+					{formPageIndex === formPages.length - 1 && (
+						<button
+							className="btn btn-block-50 btn-left btn-success"
+							onClick={(e) => handlePageIncrement(e)}
+						>
+							Submit
+						</button>
+					)}
+				</FormGroup>
+			</form>
+		</div>
 	);
 };
 
