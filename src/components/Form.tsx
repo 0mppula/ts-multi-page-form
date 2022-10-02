@@ -8,13 +8,14 @@ import { nationalities, selectItemType } from '../assets/data/nationalities';
 import '../assets/stylesheets/form.css';
 import { sexes } from '../assets/data/sexes';
 import { countries } from '../assets/data/countries';
+import DateInput from './FormComponents/DateInput';
 
 interface FormDataType {
 	firstName: string;
 	lastName: string;
 	nationality: selectItemType;
 	sex: selectItemType;
-	dateOfBirth: string;
+	dateOfBirth: Date;
 	email: string;
 	phoneNumber: string;
 	address: string;
@@ -43,7 +44,7 @@ const Form = () => {
 		lastName: '',
 		nationality: { value: null, label: '-- Select an Option --' },
 		sex: { value: null, label: '-- Select an Option --' },
-		dateOfBirth: '',
+		dateOfBirth: new Date(),
 		email: '',
 		phoneNumber: '',
 		address: '',
@@ -97,6 +98,10 @@ const Form = () => {
 		const value = e.target.value;
 
 		setFormData({ ...formData, [field]: value });
+	};
+
+	const handleDateChange = (date: Date, field: string) => {
+		setFormData({ ...formData, [field]: date });
 	};
 
 	const handleSelectChange = (e: selectItemType, field: string) => {
@@ -155,12 +160,12 @@ const Form = () => {
 			</FormGroup>
 
 			<FormGroup>
-				<TextInput
+				<DateInput
 					value={dateOfBirth}
-					handleChange={handleChange}
-					label="Date of Birth // DATE-TIME ELEMENT"
+					handleDateChange={handleDateChange}
+					label="Date of Birth"
 					name="dateOfBirth"
-					placeholder="Enter your birthday"
+					placeholder="Enter your birthday (DD.MM.YYYY)"
 					error={dateOfBirthError}
 					required
 				/>

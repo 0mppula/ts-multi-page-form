@@ -56,6 +56,22 @@ input.icon-input {
 	padding-right: 34px;
 }
 
+.date-icon {
+	color: var(--clr-gray);
+	cursor: pointer;
+	position: absolute;
+	top: 37px;
+	padding: 0.5rem 0.75rem;
+	display: flex;
+	transition: 0.15s all;
+	right: 0;
+}
+
+.date-icon:hover,
+.date-icon:focus-visible {
+	color: var(--clr-text-primary);
+}
+
 .error {
 	margin-top: 0.5rem;
 	color: var(--clr-danger);
@@ -119,3 +135,36 @@ input.icon-input {
 	padding: 10px !important;
 }
 /* End React Select Styles */
+
+/* REACT DATEPICKER STYLES */
+.react-datepicker__month-container {
+	background-color: var(--clr-body) !important;
+}
+
+/* Header styles */
+.react-datepicker__triangle {
+	left: calc(-50% + (17px / 2)) !important;
+}
+.react-datepicker__triangle::after {
+	border-bottom-color: var(--clr-primary) !important;
+}
+.react-datepicker__header {
+	background-color: var(--clr-primary) !important;
+}
+.react-datepicker__navigation-icon::before {
+	border-color: var(--clr-primary-light) !important;
+}
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+	color: var(--clr-primary-light) !important;
+}
+/* End Header styles */
+
+.react-datepicker__day--selected {
+	background-color: var(--clr-primary) !important;
+}
+
+.react-datepicker__day:hover:not(.react-datepicker__day--selected) {
+	background-color: var(--clr-primary-light) !important;
+}
+/* END REACT DATEPICKER STYLES */

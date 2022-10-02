@@ -8,7 +8,7 @@
 }
 
 body {
-	background-color: #fcfcfc;
+	background-color: var(--clr-body);
 	color: var(--clr-text-primary);
 }
 
@@ -27,6 +27,7 @@ footer a {
 }
 
 :root {
+	--clr-body: #fcfcfc;
 	--clr-gray: #ccc;
 	--clr-primary: #3c3440;
 	--clr-primary-light: #e6e3e8;
@@ -62,7 +63,6 @@ footer a {
 	text-align: center;
 	transition: all 0.15s;
 	border: none;
-	transition: var(--fast-transition);
 }
 
 .btn-block {
