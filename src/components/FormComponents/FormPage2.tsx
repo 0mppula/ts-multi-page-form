@@ -7,25 +7,15 @@ import { nationalities } from '../../assets/data/nationalities';
 import { sexes } from '../../assets/data/sexes';
 import { countries } from '../../assets/data/countries';
 import DateInput from './DateInput';
-import { FormDataType, FormErrorsType } from '../Form';
+import { FormPageProps } from '../Form';
 
-interface FormPage2Props {
-	formData: FormDataType;
-	formErrors: FormErrorsType;
-	handleChange: Function;
-	handleSelectChange: Function;
-	handleDateChange: Function;
-}
-
-const FormPage2: FC<FormPage2Props> = ({
+const FormPage2: FC<FormPageProps> = ({
 	formData,
-	formErrors,
 	handleChange,
 	handleSelectChange,
 	handleDateChange,
 }) => {
 	const {} = formData;
-	const {} = formErrors;
 
 	return (
 		<>

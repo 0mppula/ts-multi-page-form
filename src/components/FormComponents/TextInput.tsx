@@ -17,7 +17,7 @@ const TextInput: FC<TextInputProps> = ({
 	label,
 	name,
 	placeholder,
-	error = 'ERROR',
+	error,
 }) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +40,7 @@ const TextInput: FC<TextInputProps> = ({
 				name={name}
 				placeholder={placeholder}
 			/>
-			
+
 			<div className="error">{error}</div>
 		</div>
 	);

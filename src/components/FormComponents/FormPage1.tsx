@@ -7,19 +7,10 @@ import { nationalities } from '../../assets/data/nationalities';
 import { sexes } from '../../assets/data/sexes';
 import { countries } from '../../assets/data/countries';
 import DateInput from '../FormComponents/DateInput';
-import { FormDataType, FormErrorsType } from '../Form';
+import { FormPageProps } from '../Form';
 
-interface FormPage1Props {
-	formData: FormDataType;
-	formErrors: FormErrorsType;
-	handleChange: Function;
-	handleSelectChange: Function;
-	handleDateChange: Function;
-}
-
-const FormPage1: FC<FormPage1Props> = ({
+const FormPage1: FC<FormPageProps> = ({
 	formData,
-	formErrors,
 	handleChange,
 	handleSelectChange,
 	handleDateChange,
@@ -37,41 +28,28 @@ const FormPage1: FC<FormPage1Props> = ({
 		city,
 		country,
 	} = formData;
-	const {
-		firstNameError,
-		lastNameError,
-		nationalityError,
-		sexError,
-		dateOfBirthError,
-		emailError,
-		phoneNumberError,
-		addressError,
-		zipCodeError,
-		cityError,
-		countryError,
-	} = formErrors;
 
 	return (
 		<>
 			<FormGroup>
 				<TextInput
-					value={firstName}
+					value={firstName.value}
 					handleChange={handleChange}
 					label="First Name"
 					name="firstName"
 					placeholder="Enter your first name"
-					error={firstNameError}
-					required
+					error={firstName.error}
+					required={firstName.required}
 				/>
 
 				<TextInput
-					value={lastName}
+					value={lastName.value}
 					handleChange={handleChange}
 					label="Last Name"
 					name="lastName"
 					placeholder="Enter your last name"
-					error={lastNameError}
-					required
+					error={lastName.error}
+					required={lastName.required}
 				/>
 			</FormGroup>
 
@@ -79,100 +57,101 @@ const FormPage1: FC<FormPage1Props> = ({
 				<SelectInput
 					label="Nationality"
 					name="nationality"
-					value={nationality}
+					value={nationality.value}
 					options={nationalities}
-					error={nationalityError}
+					error={nationality.error}
 					handleSelectChange={handleSelectChange}
-					required
+					required={nationality.required}
 				/>
 
 				<SelectInput
 					label="Sex"
 					name="sex"
-					value={sex}
+					value={sex.value}
 					options={sexes}
-					error={sexError}
+					error={sex.error}
 					handleSelectChange={handleSelectChange}
-					required
+					required={sex.required}
 				/>
 			</FormGroup>
 
 			<FormGroup>
 				<DateInput
-					value={dateOfBirth}
+					value={dateOfBirth.value}
 					handleDateChange={handleDateChange}
 					label="Date of Birth"
 					name="dateOfBirth"
 					placeholder="Enter your birthday (DD.MM.YYYY)"
-					error={dateOfBirthError}
-					required
+					error={dateOfBirth.error}
+					required={dateOfBirth.required}
 				/>
 			</FormGroup>
 
 			<FormGroup>
 				<TextInput
-					value={email}
+					value={email.value}
 					handleChange={handleChange}
 					label="Email Address"
 					name="email"
 					placeholder="Enter your email address"
-					error={emailError}
-					required
+					error={email.error}
+					required={email.required}
 				/>
 			</FormGroup>
 
 			<FormGroup>
 				<TextInput
-					value={phoneNumber}
+					value={phoneNumber.value}
 					handleChange={handleChange}
 					label="Phone Number"
 					name="phoneNumber"
 					placeholder="Enter your phone number"
-					error={phoneNumberError}
+					error={phoneNumber.error}
+					required={phoneNumber.required}
 				/>
 			</FormGroup>
 
 			<FormGroup>
 				<TextInput
-					value={address}
+					value={address.value}
 					handleChange={handleChange}
 					label="Address"
 					name="address"
 					placeholder="Enter your street address"
-					error={addressError}
-					required
+					error={address.error}
+					required={address.required}
 				/>
 
 				<TextInput
-					value={zipCode}
+					value={zipCode.value}
 					handleChange={handleChange}
 					label="ZIP Code"
 					name="zipCode"
 					placeholder="Enter your ZIP code"
-					error={zipCodeError}
-					required
+					error={zipCode.error}
+					required={address.required}
 				/>
 			</FormGroup>
 
 			<FormGroup>
 				<TextInput
-					value={city}
+					value={city.value}
 					handleChange={handleChange}
 					label="City"
 					name="city"
 					placeholder="Enter your city"
-					error={cityError}
-					required
+					error={city.error}
+					required={city.required}
 				/>
 
 				<SelectInput
 					label="Country"
 					name="country"
-					value={country}
+					value={country.value}
 					options={countries}
-					error={countryError}
+					error={country.error}
 					handleSelectChange={handleSelectChange}
-					required
+					required={country.required}
 				/>
 			</FormGroup>
 		</>
