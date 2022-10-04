@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 
-interface TextInputProps {
+interface TextareaInputProps {
 	label: string;
 	name: string;
 	placeholder: string;
@@ -8,10 +8,9 @@ interface TextInputProps {
 	error?: string;
 	value: string;
 	handleChange: Function;
-	number?: boolean;
 }
 
-const TextInput: FC<TextInputProps> = ({
+const TextareaInput: FC<TextareaInputProps> = ({
 	value,
 	handleChange,
 	required,
@@ -19,9 +18,8 @@ const TextInput: FC<TextInputProps> = ({
 	name,
 	placeholder,
 	error,
-	number,
 }) => {
-	const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLTextAreaElement>(null);
 
 	const handleFocus = (ref: any) => {
 		if (ref.current) ref.current.focus();
@@ -34,13 +32,14 @@ const TextInput: FC<TextInputProps> = ({
 				{required && <span>*</span>}
 			</label>
 
-			<input
+			<textarea
+				ref={inputRef}
 				value={value}
 				onChange={(e) => handleChange(e)}
-				ref={inputRef}
-				type={number ? 'number' : 'text'}
 				name={name}
 				placeholder={placeholder}
+        rows={4}
+        maxLength={500}
 			/>
 
 			<div className="error">{error}</div>
@@ -48,4 +47,4 @@ const TextInput: FC<TextInputProps> = ({
 	);
 };
 
-export default TextInput;
+export default TextareaInput;

@@ -6,11 +6,16 @@ form {
 
 .form-container {
 	width: 100%;
-    padding: 0 1rem;
+	padding: 0 1rem;
 }
 
-form * {
+form *:not(h1) {
 	font-size: 1.125rem;
+}
+
+.form-header {
+	font-size: 1.5rem;
+	margin-bottom: 0.5rem;
 }
 
 .form-group {
@@ -20,11 +25,29 @@ form * {
 .input-group-container {
 	display: flex;
 	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.column {
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.btn-input-group {
+	flex-wrap: nowrap;
 }
 
 .input-group {
 	flex: 1 1 calc(50% - 1rem);
 	position: relative;
+}
+
+.checkbox-input-group {
+	align-items: center;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
+	display: flex;
+	gap: 1rem;
 }
 
 .form-group label {
@@ -53,12 +76,35 @@ textarea:focus {
 	outline: solid 2px var(--clr-primary);
 }
 
+input[type='checkbox'] {
+	width: 20px;
+	height: 20px;
+}
+
+textarea {
+	resize: vertical;
+	min-height: 120px;
+	max-height: 175px;
+}
+
 ::placeholder {
 	color: var(--clr-gray);
 }
 
 input.icon-input {
 	padding-right: 34px;
+}
+
+/* Hide number inputs buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Hide number inputs buttons (Fire Fox) */
+input[type='number'] {
+	-moz-appearance: textfield;
 }
 
 .date-icon {
@@ -172,3 +218,14 @@ input.icon-input {
 	background-color: var(--clr-primary-light) !important;
 }
 /* END REACT DATEPICKER STYLES */
+
+/* Media queries */
+@media only screen and (max-width: 576px) {
+	.report-group:not(.btn-input-group) {
+		flex: 1 1 100%;
+	}
+	.input-group:not(.btn-input-group) {
+		flex: 1 1 100% !important;
+	}
+}
+/* End Media queries */

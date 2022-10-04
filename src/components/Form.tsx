@@ -6,12 +6,19 @@ import { selectItemType } from '../assets/data/nationalities';
 import '../assets/stylesheets/form.css';
 import FormPage1 from './FormComponents/FormPage1';
 import FormPage2 from './FormComponents/FormPage2';
+import FormPage3 from './FormComponents/FormPage3';
 
 export interface FormPageProps {
 	formData: FormDataType;
 	handleChange: Function;
 	handleSelectChange: Function;
 	handleDateChange: Function;
+}
+
+export interface FormSubmitPageProps {
+	formData: FormDataType;
+	formConfirmData: FormConfirmDataType;
+	handleConfirmChange: Function;
 }
 
 export interface InputFieldStringType {
@@ -36,6 +43,7 @@ export interface InputFieldDateType {
 }
 
 export interface FormDataType {
+	// Page 1
 	firstName: InputFieldStringType;
 	lastName: InputFieldStringType;
 	nationality: InputFieldSelectType;
@@ -47,6 +55,20 @@ export interface FormDataType {
 	zipCode: InputFieldStringType;
 	city: InputFieldStringType;
 	country: InputFieldSelectType;
+	// Page 2
+	school: InputFieldStringType;
+	schoolStartDate: InputFieldDateType;
+	employer: InputFieldStringType;
+	employerStartDate: InputFieldDateType;
+	salary: InputFieldStringType;
+	netWorth: InputFieldStringType;
+	additionalInfo: InputFieldStringType;
+}
+
+interface FormConfirmDataType {
+	// Page 3
+	confirmPersonalInfo: boolean;
+	confirmTos: boolean;
 }
 
 const Form = () => {
@@ -78,6 +100,17 @@ const Form = () => {
 			page: 1,
 			required: true,
 		},
+		school: { value: '', error: '', page: 2, required: true },
+		schoolStartDate: { value: new Date(), error: '', page: 2, required: true },
+		employer: { value: '', error: '', page: 2, required: true },
+		employerStartDate: { value: new Date(), error: '', page: 2, required: true },
+		salary: { value: '', error: '', page: 2, required: true },
+		netWorth: { value: '', error: '', page: 2, required: false },
+		additionalInfo: { value: '', error: '', page: 2, required: false },
+	});
+	const [formConfirmData, setFormConfirmData] = useState<FormConfirmDataType>({
+		confirmPersonalInfo: false,
+		confirmTos: false,
 	});
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +119,18 @@ const Form = () => {
 		const fieldObj = formData[field as keyof FormDataType];
 
 		setFormData((prevState) => ({ ...prevState, [field]: { ...fieldObj, value } }));
+	};
+
+	const handleConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const field = e.target.name;
+		const value = formConfirmData[field as keyof FormConfirmDataType];
+
+		setFormConfirmData((prevState) => ({ ...prevState, [field]: !value }));
+	};
+
+	const handleSubmit = (e: React.MouseEvent) => {
+		e.preventDefault();
+		console.log('SUBMITTING');
 	};
 
 	const handleDateChange = (date: Date, field: string) => {
@@ -107,43 +152,45 @@ const Form = () => {
 	const handlePageIncrement = (e: React.MouseEvent) => {
 		e.preventDefault();
 		if (formPageIndex < formPages.length - 1) {
-			let error = false;
-			const allFormFields = { ...formData };
+			let error = validateFormPage();
+			!error && setFormPageIndex((prevState) => prevState + 1);
+		}
+	};
 
-			// 🍝 check the spaghetti
+	const validateFormPage = (): boolean => {
+		let error: boolean = false;
+		const allFormFields = { ...formData };
 
-			// Loop over the form data and push current pages field objects to array for validation.
-			Object.keys(formData).forEach((key) => {
-				const fieldObj = formData[key as keyof FormDataType];
-				if (fieldObj.page === formPageIndex + 1 && fieldObj.required) {
-					// Check if required field is not empty.
-					if (!fieldObj.value) {
-						allFormFields[key as keyof FormDataType].error = 'This field is required!';
-						error = true;
-					} else {
-						allFormFields[key as keyof FormDataType].error = '';
-					}
+		// Loop over the form data and push current pages field objects to array for validation.
+		Object.keys(formData).forEach((key) => {
+			const fieldObj = formData[key as keyof FormDataType];
+			if (fieldObj.page === formPageIndex + 1 && fieldObj.required) {
+				// Check if required field is not empty.
+				if (!fieldObj.value) {
+					allFormFields[key as keyof FormDataType].error = 'This field is required!';
+					error = true;
+				} else {
+					allFormFields[key as keyof FormDataType].error = '';
+				}
 
-					// Check if the field object is from a select element.
-					if (typeof fieldObj.value === 'object') {
-						for (const [key, value] of Object.entries(fieldObj.value)) {
-							// Only loop through the value key
-							if (key === 'value') {
-								if (value === null) {
-									fieldObj.error = 'This field is required!';
-									error = true;
-								} else {
-									fieldObj.error = '';
-								}
+				// Check if the field object is from a select element.
+				if (typeof fieldObj.value === 'object' && fieldObj.value !== null) {
+					for (const [key, value] of Object?.entries(fieldObj.value)) {
+						// Only loop through the value key of the select elements value
+						if (key === 'value') {
+							if (value === null) {
+								fieldObj.error = 'This field is required!';
+								error = true;
+							} else {
+								fieldObj.error = '';
 							}
 						}
 					}
 				}
-			});
-
-			setFormData({ ...allFormFields });
-			!error && setFormPageIndex((prevState) => prevState + 1);
-		}
+			}
+		});
+		setFormData({ ...allFormFields });
+		return error;
 	};
 
 	const handlePageDecrement = (e: React.MouseEvent) => {
@@ -154,17 +201,25 @@ const Form = () => {
 	};
 
 	const formPages = [
+		// Personal info page
 		<FormPage1
 			formData={formData}
 			handleChange={handleChange}
 			handleDateChange={handleDateChange}
 			handleSelectChange={handleSelectChange}
 		/>,
+		// Career info page
 		<FormPage2
 			formData={formData}
 			handleChange={handleChange}
 			handleDateChange={handleDateChange}
 			handleSelectChange={handleSelectChange}
+		/>,
+		// Summary / submit page
+		<FormPage3
+			formData={formData}
+			formConfirmData={formConfirmData}
+			handleConfirmChange={handleConfirmChange}
 		/>,
 	];
 
@@ -174,7 +229,7 @@ const Form = () => {
 			<form>
 				{formPages[formPageIndex]}
 
-				<FormGroup>
+				<FormGroup buttonsContainer>
 					{formPageIndex > 0 && (
 						<button
 							className="btn btn-block-50 btn-right"
@@ -198,7 +253,7 @@ const Form = () => {
 					{formPageIndex === formPages.length - 1 && (
 						<button
 							className="btn btn-block-50 btn-left btn-success"
-							onClick={(e) => handlePageIncrement(e)}
+							onClick={(e) => handleSubmit(e)}
 						>
 							Submit
 						</button>
