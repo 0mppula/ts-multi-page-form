@@ -5,10 +5,18 @@ interface CheckboxInputProps {
 	name: string;
 	required?: boolean;
 	value: boolean;
+	error: string;
 	handleChange: Function;
 }
 
-const CheckboxInput: FC<CheckboxInputProps> = ({ value, handleChange, required, label, name }) => {
+const CheckboxInput: FC<CheckboxInputProps> = ({
+	value,
+	handleChange,
+	required,
+	label,
+	name,
+	error,
+}) => {
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const handleFocus = (ref: any) => {
@@ -29,6 +37,8 @@ const CheckboxInput: FC<CheckboxInputProps> = ({ value, handleChange, required, 
 				type="checkbox"
 				name={name}
 			/>
+
+			<div className="error">{error}</div>
 		</div>
 	);
 };

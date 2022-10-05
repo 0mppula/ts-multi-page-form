@@ -2,10 +2,16 @@ import { FC } from 'react';
 import moment from 'moment';
 
 import FormGroup from './FormGroup';
-import { FormSubmitPageProps } from '../Form';
 import CheckboxInput from './CheckboxInput';
+import { FormDataType, FormConfirmDataType } from '../Form/formTypes';
 
-const FormPage3: FC<FormSubmitPageProps> = ({ formData, formConfirmData, handleConfirmChange }) => {
+export interface FormSubmitPageProps {
+	formData: FormDataType;
+	formConfirmData: FormConfirmDataType;
+	handleConfirmChange: Function;
+}
+
+const FormSubmitPage: FC<FormSubmitPageProps> = ({ formData, formConfirmData, handleConfirmChange }) => {
 	const {
 		firstName: { value: firstName },
 		lastName: { value: lastName },
@@ -66,14 +72,16 @@ const FormPage3: FC<FormSubmitPageProps> = ({ formData, formConfirmData, handleC
 			<hr />
 
 			<CheckboxInput
-				value={confirmPersonalInfo}
+				value={confirmPersonalInfo.value}
+				error={confirmPersonalInfo.error}
 				handleChange={handleConfirmChange}
 				label="All the personal information that I have provided is correct."
 				name="confirmPersonalInfo"
 			/>
 
 			<CheckboxInput
-				value={confirmTos}
+				value={confirmTos.value}
+				error={confirmTos.error}
 				handleChange={handleConfirmChange}
 				label="I read and accept the terms of service"
 				name="confirmTos"
@@ -82,4 +90,4 @@ const FormPage3: FC<FormSubmitPageProps> = ({ formData, formConfirmData, handleC
 	);
 };
 
-export default FormPage3;
+export default FormSubmitPage;

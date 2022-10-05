@@ -9,7 +9,8 @@ form {
 	padding: 0 1rem;
 }
 
-form *:not(h1) {
+form *:not(h1),
+.form-receipt-container *:not(h1) {
 	font-size: 1.125rem;
 }
 
@@ -47,7 +48,7 @@ form *:not(h1) {
 	flex-wrap: wrap;
 	margin-bottom: 1rem;
 	display: flex;
-	gap: 1rem;
+	column-gap: 1rem;
 }
 
 .form-group label {
@@ -124,8 +125,22 @@ input[type='number'] {
 }
 
 .error {
+	width: 100%;
 	margin-top: 0.5rem;
 	color: var(--clr-danger);
+}
+
+.form-receipt-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.form-receipt-container h1,
+.form-receipt-container p {
+	margin-bottom: 1rem;
 }
 
 .progress-bar {

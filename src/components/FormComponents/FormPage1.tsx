@@ -7,7 +7,7 @@ import { nationalities } from '../../assets/data/nationalities';
 import { sexes } from '../../assets/data/sexes';
 import { countries } from '../../assets/data/countries';
 import DateInput from '../FormComponents/DateInput';
-import { FormPageProps } from '../Form';
+import { FormPageProps } from '../Form/formTypes';
 
 const FormPage1: FC<FormPageProps> = ({
 	formData,

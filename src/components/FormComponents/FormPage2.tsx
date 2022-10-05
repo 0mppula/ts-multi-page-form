@@ -3,7 +3,7 @@ import { FC } from 'react';
 import TextInput from './TextInput';
 import FormGroup from './FormGroup';
 import DateInput from './DateInput';
-import { FormPageProps } from '../Form';
+import { FormPageProps } from '../Form/formTypes';
 import TextareaInput from './TextareaInput';
 
 const FormPage2: FC<FormPageProps> = ({

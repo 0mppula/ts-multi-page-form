@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Footer from './components/Footer/Footer';
-import Form from './components/Form';
+import Form from './components/Form/Form';
 
 const App: FC = () => {
 	return (
