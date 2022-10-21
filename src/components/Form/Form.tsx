@@ -7,14 +7,14 @@ import FormPage1 from '../FormComponents/FormPage1';
 import FormPage2 from '../FormComponents/FormPage2';
 import FormSubmitPage from '../FormComponents/FormSubmitPage';
 import { FormDataType, FormConfirmDataType } from './formTypes';
-import { initialformConfirmData, initialformData } from './initialFormStates';
+import { getInitialFormConfirmData, getInitialFormData } from './initialFormStates';
 import FormControlButtons from '../FormComponents/FormControlButtons';
 
 const Form = () => {
 	const [formPageIndex, setFormPageIndex] = useState<number>(0);
-	const [formData, setFormData] = useState<FormDataType>(initialformData);
+	const [formData, setFormData] = useState<FormDataType>(getInitialFormData());
 	const [formConfirmData, setFormConfirmData] =
-		useState<FormConfirmDataType>(initialformConfirmData);
+		useState<FormConfirmDataType>(getInitialFormConfirmData());
 	const [submitted, setSubmitted] = useState<boolean>(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,8 +65,8 @@ const Form = () => {
 	const handleFormReset = () => {
 		setSubmitted(false);
 		setFormPageIndex(0);
-		setFormConfirmData(initialformConfirmData);
-		setFormData(initialformData);
+		setFormConfirmData(getInitialFormConfirmData());
+		setFormData(getInitialFormData());
 	};
 
 	const handleDateChange = (date: Date, field: string) => {

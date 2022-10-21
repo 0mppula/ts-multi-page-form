@@ -1,4 +1,4 @@
-export const initialformData = {
+export const getInitialFormData = () => ({
 	firstName: { value: '', error: '', page: 1, required: true },
 	lastName: { value: '', error: '', page: 1, required: true },
 	nationality: {
@@ -32,9 +32,9 @@ export const initialformData = {
 	salary: { value: '', error: '', page: 2, required: true },
 	netWorth: { value: '', error: '', page: 2, required: false },
 	additionalInfo: { value: '', error: '', page: 2, required: false },
-};
+});
 
-export const initialformConfirmData = {
+export const getInitialFormConfirmData = () => ({
 	confirmPersonalInfo: { value: false, error: '' },
 	confirmTos: { value: false, error: '' },
-};
+});
